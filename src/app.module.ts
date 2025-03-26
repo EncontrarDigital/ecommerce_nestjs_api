@@ -101,6 +101,7 @@ export class AppModule {
     consumer
       .apply(
         session({
+          name: 'accessToken', // Definindo o nome do cookie
           store: new RedisStore({ client: this.redisClient }),
           secret: this.configService.get<string>('session.secret', ''),
           resave: false,
