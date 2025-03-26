@@ -50,8 +50,8 @@ export class Product {
   })
   photos: ProductPhoto[];
 
-  @Column({ default: '' })
-  photosOrder: string;
+  @Column({ default: '', nullable: true })
+  photosOrder?: string;
 
   @OneToMany(() => ProductRating, (rating) => rating.product, {
     onDelete: 'CASCADE',
