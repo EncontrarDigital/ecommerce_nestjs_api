@@ -14,7 +14,9 @@ export class ProductPhotosExporter implements Exporter<ProductPhoto> {
       if (a.product.id !== b.product.id) {
         return a.product.id - b.product.id;
       }
-      const photosOrder = a.product.photosOrder.split(',');
+      const photosOrder = a.product.photosOrder
+        ? a.product.photosOrder.split(',')
+        : '';
       return (
         photosOrder.indexOf(a.id.toString()) -
         photosOrder.indexOf(b.id.toString())
