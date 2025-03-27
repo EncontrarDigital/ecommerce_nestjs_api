@@ -1,12 +1,15 @@
 import {
+  BadRequestException,
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   Param,
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Product } from './models/product.entity';
@@ -53,6 +56,29 @@ export class ProductsController {
       return this.productsService.getProduct(id, true);
     }
     return await this.productsService.getProduct(id);
+  }
+
+  @Get('/list/expensive')
+  @ApiOkResponse({
+    type: [Product],
+    description: 'List of the most expensive products',
+  })
+  getExpensiveProducts(
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
+  ): Promise<Product[]> {
+    return this.productsService.getExpensiveProducts(limit || 10);
+  }
+
+  /**
+   * Endpoint para listar os produtos em promoção.
+   */
+  @Get('/list/promotions')
+  @ApiOkResponse({
+    type: [Product],
+    description: 'List of products on promotion',
+  })
+  getPromotionalProducts(): Promise<Product[]> {
+    return this.productsService.getPromotionalProducts();
   }
 
   @Post()

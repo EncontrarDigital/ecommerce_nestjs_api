@@ -35,6 +35,22 @@ export class ProductsService {
     return product;
   }
 
+  async getExpensiveProducts(limit = 10): Promise<Product[]> {
+    return this.productsRepository.find({
+      order: { price: 'DESC' },
+      take: limit,
+    });
+  }
+
+  /**
+   * Retorna os produtos que estão em promoção
+   */
+  async getPromotionalProducts(): Promise<Product[]> {
+    return this.productsRepository.find({
+      where: { is_promotion: true },
+    });
+  }
+
   async createProduct(productData: ProductCreateDto): Promise<Product> {
     const product = new Product();
     Object.assign(product, productData);
