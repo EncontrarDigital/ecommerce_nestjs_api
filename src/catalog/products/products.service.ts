@@ -35,6 +35,15 @@ export class ProductsService {
     return product;
   }
 
+  async getOtherProducts(limit = 10, withHidden?: boolean): Promise<Product[]> {
+    return this.productsRepository
+      .createQueryBuilder('product')
+      .where(withHidden ? {} : { visible: true })
+      .orderBy('RAND()') // Em MySQL, MariaDB e SQLite
+      .limit(limit)
+      .getMany();
+  }
+
   async getExpensiveProducts(limit = 10): Promise<Product[]> {
     return this.productsRepository.find({
       order: { price: 'DESC' },

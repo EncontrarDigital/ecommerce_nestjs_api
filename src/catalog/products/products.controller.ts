@@ -45,6 +45,15 @@ export class ProductsController {
     return this.productsService.getProducts();
   }
 
+  @Get('/list/otherProducts')
+  @ApiOkResponse({ type: [Product], description: 'List of others products' })
+  getOtherProducts(@ReqUser() user?: User): Promise<Product[]> {
+    if (user && [Role.Admin, Role.Manager, Role.Sales].includes(user?.role)) {
+      return this.productsService.getProducts(true);
+    }
+    return this.productsService.getOtherProducts();
+  }
+
   @Get('/:id')
   @ApiNotFoundResponse({ description: 'Product not found' })
   @ApiOkResponse({ type: Product, description: 'Product with given id' })
