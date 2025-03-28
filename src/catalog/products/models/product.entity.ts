@@ -27,8 +27,8 @@ export class Product {
   @Column({ type: 'double precision' })
   price: number;
 
-  @Column({ type: 'double precision' })
-  promotional_price: number;
+  @Column({ type: 'double precision', default: 0, nullable: true })
+  promotional_price?: number;
 
   @Column({ default: true })
   visible: boolean;
