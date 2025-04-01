@@ -21,7 +21,7 @@ async function bootstrap() {
   });
   await RedocModule.setup('docs', app, document, {});
 
-  const port = configService.get('port');
+  const port = configService.get('port') || 80;
   await app.listen(port);
 }
 bootstrap();
