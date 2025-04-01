@@ -21,7 +21,10 @@ async function bootstrap() {
   });
   await RedocModule.setup('docs', app, document, {});
 
-  const port = 80;
-  await app.listen(port);
+  const PORT = process.env.PORT || 80;
+  await app.listen(PORT, '0.0.0.0'); // Certifique-se de escutar em todas as interfaces
+  console.log(`App running on port ${PORT}`);
+
+  await app.listen(PORT);
 }
 bootstrap();
