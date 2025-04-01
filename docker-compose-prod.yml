@@ -13,6 +13,8 @@ services:
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       POSTGRES_DB: ecommerce-platform
+      REDIS_HOST: redis # Adicione esta linha
+      REDIS_PORT: 6379  # Certifique-se de incluir a porta também
       PORT: 80
       SESSION_SECRET: "${SESSION_SECRET}"
       ADMIN_EMAIL: "${ADMIN_EMAIL}"
@@ -35,6 +37,13 @@ services:
       POSTGRES_DB: ecommerce-platform
   redis:
     image: redis:7-alpine
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: fonebahia8@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
 
 volumes:
   postgres:
