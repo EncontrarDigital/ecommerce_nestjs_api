@@ -13,8 +13,8 @@ import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import * as session from 'express-session';
 import * as passport from 'passport';
 import * as createRedisStore from 'connect-redis';
-import { RedisClient } from 'redis';
-import { RedisModule, REDIS_CLIENT } from './redis';
+// import { RedisClient } from 'redis';
+// import { RedisModule, REDIS_CLIENT } from './redis';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { LocalFilesModule } from './local-files/local-files.module';
 import { ServiceErrorInterceptor } from './errors/service-error.interceptor';
@@ -54,7 +54,7 @@ import { CartsModule } from './carts/carts.module';
       }),
       inject: [ConfigService],
     }),
-    RedisModule,
+    // RedisModule,
     AuthModule,
     UsersModule,
     SettingsModule,
@@ -92,17 +92,16 @@ import { CartsModule } from './carts/carts.module';
 })
 export class AppModule {
   constructor(
-    private readonly configService: ConfigService,
-    @Inject(REDIS_CLIENT) private readonly redisClient: RedisClient,
+    private readonly configService: ConfigService, // @Inject(REDIS_CLIENT) private readonly redisClient: RedisClient,
   ) {}
 
   configure(consumer: MiddlewareConsumer) {
-    const RedisStore = createRedisStore(session);
+    // const RedisStore = createRedisStore(session);
     consumer
       .apply(
         session({
           name: 'accessToken', // Definindo o nome do cookie
-          store: new RedisStore({ client: this.redisClient }),
+          // store: new RedisStore({ client: this.redisClient }),
           secret: this.configService.get<string>('session.secret', ''),
           resave: false,
           saveUninitialized: false,

@@ -11,10 +11,10 @@ export default () => ({
     secret: process.env.SESSION_SECRET,
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
-  redis: {
-    host: 6379,
-    port: 'redis',
-  },
+  // redis: {
+  //   host: 6379,
+  //   port: 'redis',
+  // },
   uploadPath: process.env.UPLOAD_PATH,
   nodeEnv: process.env.NODE_ENV,
   admin: {

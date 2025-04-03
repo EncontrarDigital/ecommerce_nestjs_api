@@ -14,8 +14,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: ecommerce-platform
-      REDIS_HOST: redis # Adicione esta linha
-      REDIS_PORT: 6379  # Certifique-se de incluir a porta também
+      # REDIS_HOST: redis # Adicione esta linha
+      # REDIS_PORT: 6379  # Certifique-se de incluir a porta também
       PORT: 80
       SESSION_SECRET: secret
       ADMIN_EMAIL: admin@test.local
@@ -27,7 +27,7 @@ services:
       - default
     links:
       - database
-      - redis
+      # - redis
   database:
     image: postgres:14-alpine
     volumes:
@@ -38,10 +38,10 @@ services:
       POSTGRES_DB: ecommerce-platform
     ports:
       - "5432:5432"
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
+  # redis:
+  #   image: redis:7-alpine
+  #   ports:
+  #     - "6379:6379"
   pgadmin:
     image: dpage/pgadmin4
     environment:
