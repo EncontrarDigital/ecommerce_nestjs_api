@@ -1,24 +1,31 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "noEmitOnError": false,
-    "strict": false, // Se quiser desabilitar a verificação estrita de tipos
-    "skipLibCheck": true, // Ignora a verificação de bibliotecas (útil se o problema estiver nas dependências)
-    "skipDefaultLibCheck": true, // Ignora verificação de tipos das bibliotecas padrão
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
     "target": "es2017",
-    "sourceMap": true,
+    "module": "commonjs",
     "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true,
+    "declaration": false,
+    "removeComments": true,
+    "sourceMap": false,
+    "noEmitOnError": false,
+    "strict": false,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "strictNullChecks": false,
+    "strictFunctionTypes": false,
+    "strictBindCallApply": false,
     "strictPropertyInitialization": false,
+    "alwaysStrict": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
-    "esModuleInterop": true
-  }
+    "incremental": false
+  },
+  "exclude": ["node_modules"],
+  "types": ["node", "express", "multer"]
 }

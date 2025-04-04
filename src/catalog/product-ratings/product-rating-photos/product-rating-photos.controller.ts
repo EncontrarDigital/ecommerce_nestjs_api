@@ -36,6 +36,7 @@ import { ProductRating } from '../models/product-rating.entity';
 import { Features } from '../../../settings/guards/features.decorator';
 import { fileResponseSchema } from '../../../local-files/models/file-response.schema';
 import { fileBodySchema } from '../../../local-files/models/file-body.schema';
+import * as Express from 'express';
 
 @ApiTags('product ratings')
 @Features('Product ratings', 'Product rating photos')

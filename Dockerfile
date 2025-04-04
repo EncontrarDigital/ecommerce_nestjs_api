@@ -1,6 +1,7 @@
 FROM node:18-alpine as base
 WORKDIR /usr/src/app
 COPY package*.json ./
+RUN apk add --no-cache python3 make g++
 RUN npm i -g @nestjs/cli
 
 # Ambiente de desenvolvimento
@@ -10,7 +11,7 @@ COPY . .
 
 # Ambiente de produção
 FROM base as prod
-RUN npm ci --omit=dev  # Instalar apenas dependências de produção
-COPY . .
-RUN npm run build
-CMD ["node", "dist/main"]  # Adicionando a execução correta do servidor
+COPY . .               
+RUN npm ci --omit=dev  
+RUN npm run build   
+CMD ["node", "dist/main"]  
