@@ -13,8 +13,8 @@ services:
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       POSTGRES_DB: ecommerce-platform
-      REDIS_HOST: redis # Adicione esta linha
-      REDIS_PORT: 6379  # Certifique-se de incluir a porta também
+      # REDIS_HOST: redis # Adicione esta linha
+      # REDIS_PORT: 6379  # Certifique-se de incluir a porta também
       PORT: 80
       SESSION_SECRET: "${SESSION_SECRET}"
       ADMIN_EMAIL: "${ADMIN_EMAIL}"
@@ -26,7 +26,7 @@ services:
       - default
     links:
       - database
-      - redis
+      # - redis
   database:
     image: postgres:14-alpine
     volumes:
@@ -35,8 +35,8 @@ services:
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       POSTGRES_DB: ecommerce-platform
-  redis:
-    image: redis:7-alpine
+  # redis:
+  #   image: redis:7-alpine
   pgadmin:
     image: dpage/pgadmin4
     environment:
