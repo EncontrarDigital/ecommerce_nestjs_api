@@ -12,6 +12,6 @@ COPY . .
 # Ambiente de produção
 FROM base as prod
 COPY . .               
-RUN npm ci --omit=dev  
+RUN npm ci --omit=dev --legacy-peer-deps  
 RUN npm run build   
 CMD ["node", "dist/main"]  

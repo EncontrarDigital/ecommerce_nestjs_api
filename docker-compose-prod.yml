@@ -13,13 +13,12 @@ services:
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       POSTGRES_DB: ecommerce-platform
-      REDIS_HOST: redis # Adicione esta linha
-      REDIS_PORT: 6379  # Certifique-se de incluir a porta também
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
       PORT: 80
       SESSION_SECRET: "${SESSION_SECRET}"
       ADMIN_EMAIL: "${ADMIN_EMAIL}"
       ADMIN_PASSWORD: "${ADMIN_PASSWORD}"
-    command: npm run start:prod
     ports:
       - "80:80"
     networks:
@@ -27,6 +26,7 @@ services:
     links:
       - database
       - redis
+
   database:
     image: postgres:14-alpine
     volumes:
@@ -35,10 +35,12 @@ services:
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       POSTGRES_DB: ecommerce-platform
+
   redis:
     image: redis:7-alpine
     ports:
-    - "6379:6379"
+      - "6379:6379"
+
   pgadmin:
     image: dpage/pgadmin4
     environment:
