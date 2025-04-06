@@ -24,7 +24,8 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
-    "incremental": false
+    "incremental": false,    
+    "typeRoots": ["./node_modules/@types", "./@types"]
   },
   "exclude": ["node_modules"],
   "types": ["node", "express", "multer"]
