@@ -25,9 +25,9 @@ jobs:
       postgres:
         image: postgres:14
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: ecommerce-platform-test
+          POSTGRES_USER: "${POSTGRES_USER}"
+          POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+          POSTGRES_DB: "${POSTGRES_DB}"
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -56,9 +56,9 @@ jobs:
         run: npm run test:e2e:cov
         env:
           POSTGRES_HOST: localhost
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: ecommerce-platform-test
+          POSTGRES_USER: "${POSTGRES_USER}"
+          POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+          POSTGRES_DB: "${POSTGRES_DB}"
           REDIS_HOST: localhost
           NODE_ENV: test
           ADMIN_EMAIL: test@test.local
