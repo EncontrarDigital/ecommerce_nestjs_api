@@ -23,6 +23,7 @@ import { FeaturesEnabledGuard } from './settings/guards/features-enabled.guard';
 import { ImportExportModule } from './import-export/import-export.module';
 import { PagesModule } from './pages/pages.module';
 import { CartsModule } from './carts/carts.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -32,6 +33,14 @@ import { CartsModule } from './carts/carts.module';
       isGlobal: true,
       validationSchema: schema,
       load: [configuration],
+    }),
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      database: ':memory:', // Banco de dados em memória
+      entities: [], // Defina suas entidades aqui, caso necessário
+      synchronize: true, // Isso vai sincronizar as entidades automaticamente (útil para testes)
+      autoLoadEntities: true,
+      keepConnectionAlive: true,
     }),
     // Removido o TypeOrmModule
     // TypeOrmModule.forRootAsync({
