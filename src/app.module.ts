@@ -4,7 +4,6 @@ import {
   Module,
   ValidationPipe,
 } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -12,9 +11,6 @@ import configuration from './config/configuration';
 import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import * as session from 'express-session';
 import * as passport from 'passport';
-import * as createRedisStore from 'connect-redis';
-// import { RedisClient } from 'redis';
-// import { RedisModule, REDIS_CLIENT } from './redis';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { LocalFilesModule } from './local-files/local-files.module';
 import { ServiceErrorInterceptor } from './errors/service-error.interceptor';
@@ -37,24 +33,24 @@ import { CartsModule } from './carts/carts.module';
       validationSchema: schema,
       load: [configuration],
     }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get<string>('postgres.host'),
-        port: configService.get<number>('postgres.port'),
-        username: configService.get<string>('postgres.username'),
-        password: configService.get<string>('postgres.password'),
-        database: configService.get<string>('postgres.database'),
-        entities: [],
-        synchronize: true,
-        autoLoadEntities: true,
-        keepConnectionAlive: true,
-        dropSchema: false,
-      }),
-      inject: [ConfigService],
-    }),
-    // RedisModule,
+    // Removido o TypeOrmModule
+    // TypeOrmModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   useFactory: (configService: ConfigService) => ({
+    //     type: 'postgres',
+    //     host: configService.get<string>('postgres.host'),
+    //     port: configService.get<number>('postgres.port'),
+    //     username: configService.get<string>('postgres.username'),
+    //     password: configService.get<string>('postgres.password'),
+    //     database: configService.get<string>('postgres.database'),
+    //     entities: [],
+    //     synchronize: true,
+    //     autoLoadEntities: true,
+    //     keepConnectionAlive: true,
+    //     dropSchema: false,
+    //   }),
+    //   inject: [ConfigService],
+    // }),
     AuthModule,
     UsersModule,
     SettingsModule,
@@ -96,12 +92,10 @@ export class AppModule {
   ) {}
 
   configure(consumer: MiddlewareConsumer) {
-    // const RedisStore = createRedisStore(session);
     consumer
       .apply(
         session({
           name: 'accessToken', // Definindo o nome do cookie
-          // store: new RedisStore({ client: this.redisClient }),
           secret: this.configService.get<string>('session.secret', ''),
           resave: false,
           saveUninitialized: false,
