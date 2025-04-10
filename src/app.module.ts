@@ -11,6 +11,9 @@ import configuration from './config/configuration';
 import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import session from 'express-session';
 import passport from 'passport';
+import createRedisStore from 'connect-redis';
+import { RedisClient } from 'redis';
+import { RedisModule, REDIS_CLIENT } from './redis';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { LocalFilesModule } from './local-files/local-files.module';
 import { ServiceErrorInterceptor } from './errors/service-error.interceptor';
@@ -36,7 +39,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
+useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         host: configService.get<string>('postgres.host'),
         port: configService.get<number>('postgres.port'),
@@ -51,6 +54,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       }),
       inject: [ConfigService],
     }),
+    RedisModule,
     AuthModule,
     UsersModule,
     SettingsModule,
@@ -88,14 +92,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 })
 export class AppModule {
   constructor(
-    private readonly configService: ConfigService, // @Inject(REDIS_CLIENT) private readonly redisClient: RedisClient,
+    private readonly configService: ConfigService, 
+    @Inject(REDIS_CLIENT) private readonly redisClient: RedisClient,
   ) {}
 
   configure(consumer: MiddlewareConsumer) {
+    const RedisStore = createRedisStore(session);
     consumer
       .apply(
         session({
           name: 'accessToken', // Definindo o nome do cookie
+          store: new RedisStore({ client: this.redisClient }),
           secret: this.configService.get<string>('session.secret', ''),
           resave: false,
           saveUninitialized: false,
