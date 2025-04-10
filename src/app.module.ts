@@ -10,7 +10,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
 import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import session from 'express-session';
-import * as passport from 'passport';
+import passport from 'passport';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { LocalFilesModule } from './local-files/local-files.module';
 import { ServiceErrorInterceptor } from './errors/service-error.interceptor';
