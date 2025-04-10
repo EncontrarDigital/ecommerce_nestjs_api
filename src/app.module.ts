@@ -9,7 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
 import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
-import * as session from 'express-session';
+import session from 'express-session';
 import * as passport from 'passport';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { LocalFilesModule } from './local-files/local-files.module';
