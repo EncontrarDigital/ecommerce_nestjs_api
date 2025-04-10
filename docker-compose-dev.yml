@@ -14,8 +14,9 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: ecommerce-platform
-      REDIS_HOST: redis # Adicione esta linha
-      REDIS_PORT: 6379  # Certifique-se de incluir a porta também
+      REDIS_HOST: "${REDIS_HOST}"
+      REDIS_PORT: "${REDIS_PORT}"
+      REDIS_PASSWORD: "${REDIS_PASSWORD}"
       PORT: 80
       SESSION_SECRET: secret
       ADMIN_EMAIL: admin@test.local

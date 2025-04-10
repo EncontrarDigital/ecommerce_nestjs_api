@@ -11,10 +11,11 @@ import { ConfigService } from '@nestjs/config';
         Redis.createClient({
           host: configService.get<string>('redis.host'),
           port: configService.get<number>('redis.port'),
+          password: configService.get<string>('redis.password'),
         }),
       inject: [ConfigService],
     },
   ],
   exports: [REDIS_CLIENT],
 })
-export class RedisModule {}
+export class RedisModule { }
