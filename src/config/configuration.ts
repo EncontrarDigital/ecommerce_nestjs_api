@@ -12,8 +12,8 @@ export default () => ({
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
   redis: {
-    host: 'redis',
-    port: 6379,
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
   },
   uploadPath: process.env.UPLOAD_PATH,
   nodeEnv: process.env.NODE_ENV,
