@@ -34,32 +34,23 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       validationSchema: schema,
       load: [configuration],
     }),
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: ':memory:', // Banco de dados em memória
-      entities: [], // Defina suas entidades aqui, caso necessário
-      synchronize: true, // Isso vai sincronizar as entidades automaticamente (útil para testes)
-      autoLoadEntities: true,
-      keepConnectionAlive: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get<string>('postgres.host'),
+        port: configService.get<number>('postgres.port'),
+        username: configService.get<string>('postgres.username'),
+        password: configService.get<string>('postgres.password'),
+        database: configService.get<string>('postgres.database'),
+        entities: [],
+        synchronize: true,
+        autoLoadEntities: true,
+        keepConnectionAlive: true,
+        dropSchema: false,
+      }),
+      inject: [ConfigService],
     }),
-    // Removido o TypeOrmModule
-    // TypeOrmModule.forRootAsync({
-    //   imports: [ConfigModule],
-    //   useFactory: (configService: ConfigService) => ({
-    //     type: 'postgres',
-    //     host: configService.get<string>('postgres.host'),
-    //     port: configService.get<number>('postgres.port'),
-    //     username: configService.get<string>('postgres.username'),
-    //     password: configService.get<string>('postgres.password'),
-    //     database: configService.get<string>('postgres.database'),
-    //     entities: [],
-    //     synchronize: true,
-    //     autoLoadEntities: true,
-    //     keepConnectionAlive: true,
-    //     dropSchema: false,
-    //   }),
-    //   inject: [ConfigService],
-    // }),
     AuthModule,
     UsersModule,
     SettingsModule,
