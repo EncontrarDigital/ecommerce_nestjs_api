@@ -103,7 +103,7 @@ export class AppModule {
         session({
           name: 'accessToken', // Definindo o nome do cookie
           store: new RedisStore({ client: this.redisClient }),
-          secret: this.configService.get<string>('session.secret', ''),
+          secret: "secret",
           resave: false,
           saveUninitialized: false,
           cookie: {
