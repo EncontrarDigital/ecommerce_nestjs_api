@@ -7,10 +7,19 @@ import { RedocModule } from 'nestjs-redoc';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
-
-  if (configService.get('nodeEnv') === 'development') {
-    app.enableCors({ origin: true, credentials: true });
-  }
+  const nodeEnv = configService.get('nodeEnv');
+  
+  if (nodeEnv === 'development') {
+  app.enableCors({
+    origin: true,
+    credentials: true,
+  });
+} else {
+  app.enableCors({
+    origin: ['https://admin.encontrarshopping.com', 'https://encontrarshopping.com'],
+    credentials: true,
+  });
+}
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('E-commerce platform API')
