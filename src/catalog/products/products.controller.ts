@@ -39,7 +39,7 @@ export class ProductsController {
   @Get()
   @ApiOkResponse({ type: [Product], description: 'List of all products' })
   getProducts(@ReqUser() user?: User): Promise<Product[]> {
-    if (user && [Role.Admin, Role.Manager, Role.Sales].includes(user?.role)) {
+    if (user && [Role.Admin, Role.Manager, Role.Sales, Role.Shoper].includes(user?.role)) {
       return this.productsService.getProducts(true);
     }
     return this.productsService.getProducts();
@@ -61,7 +61,7 @@ export class ProductsController {
     @Param('id', ParseIntPipe) id: number,
     @ReqUser() user?: User,
   ): Promise<Product> {
-    if (user && [Role.Admin, Role.Manager, Role.Sales].includes(user.role)) {
+    if (user && [Role.Admin, Role.Manager, Role.Sales, Role.Shoper].includes(user.role)) {
       return this.productsService.getProduct(id, true);
     }
     return await this.productsService.getProduct(id);
@@ -91,7 +91,7 @@ export class ProductsController {
   }
 
   @Post()
-  @Roles(Role.Admin, Role.Manager)
+  @Roles(Role.Admin, Role.Manager, Role.Shoper)
   @ApiUnauthorizedResponse({ description: 'User not logged in' })
   @ApiForbiddenResponse({ description: 'User not authorized' })
   @ApiCreatedResponse({ type: Product, description: 'Product created' })
@@ -101,7 +101,7 @@ export class ProductsController {
   }
 
   @Patch('/:id')
-  @Roles(Role.Admin, Role.Manager)
+  @Roles(Role.Admin, Role.Manager, Role.Shoper)
   @ApiUnauthorizedResponse({ description: 'User not logged in' })
   @ApiForbiddenResponse({ description: 'User not authorized' })
   @ApiOkResponse({ type: Product, description: 'Product updated' })
