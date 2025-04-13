@@ -107,6 +107,9 @@ export class AppModule {
           resave: false,
           saveUninitialized: false,
           cookie: {
+            secure: true, // obrigatório para SameSite=None
+            sameSite: 'none', // permite cookies entre domínios diferentes
+            httpOnly: true,
             maxAge: this.configService.get<number>('session.maxAge'),
           },
         }),

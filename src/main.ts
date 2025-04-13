@@ -21,8 +21,6 @@ async function bootstrap() {
   });
 }
 
-console.log("nodeEnv",nodeEnv)
-
   const swaggerConfig = new DocumentBuilder()
     .setTitle('E-commerce platform API')
     .setVersion(process.env.npm_package_version ?? '1.0.0')
