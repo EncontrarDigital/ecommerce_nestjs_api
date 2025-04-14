@@ -49,8 +49,14 @@ export class AuthController {
   async login(
     @Req() req: Request,
   ): Promise<Pick<User, 'id' | 'firstName' | 'email' | 'role'>> {
-    return req.user as User;
+    return new Promise((resolve, reject) => {
+      req.login(req.user, (err) => {
+        if (err) return reject(err);
+        resolve(req.user as User);
+      });
+    });
   }
+  
 
   @UseGuards(SessionAuthGuard)
   @Post('logout')
